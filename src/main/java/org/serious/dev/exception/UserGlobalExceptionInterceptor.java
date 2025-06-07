@@ -6,9 +6,11 @@ import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import io.grpc.Status;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class UserGlobalExceptionInterceptor implements ServerInterceptor {
 
     private static final Map<Class<? extends Exception>, Status> EXCEPTION_STATUS_MAP = Map.of(

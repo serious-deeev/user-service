@@ -1,6 +1,5 @@
 package org.serious.dev;
 
-import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.protobuf.services.ProtoReflectionService;
@@ -15,13 +14,14 @@ import java.io.IOException;
 public class GrpcServerRunner implements DisposableBean {
 
     private final Integer grpcServerPort;
+    private final UserGlobalExceptionInterceptor userGlobalExceptionInterceptor;
     private final UserGrpcService userGrpcService;
     private Server server;
 
     // сервер включает сервис для работы grpc-рефлексии
     public void start() throws IOException {
         server = ServerBuilder.forPort(grpcServerPort)
-                .intercept(new UserGlobalExceptionInterceptor())
+                .intercept(userGlobalExceptionInterceptor)
                 .addService(ProtoReflectionService.newInstance())
                 .addService(userGrpcService)
                 .build()
