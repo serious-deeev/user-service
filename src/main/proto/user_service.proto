@@ -1,0 +1,16 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "org.serious.dev.grpc";
+
+message UserRequest {
+  int64 id = 1;
+}
+
+message UserResponse {
+  int64 id = 1;
+  string username = 2;
+}
+
+service UserService {
+  rpc GetUser(UserRequest) returns (UserResponse);
+}
