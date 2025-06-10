@@ -1,17 +1,18 @@
 package org.serious.dev.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.serious.dev.GrpcServerRunner;
 import org.serious.dev.TestGrpcClient;
+import org.serious.dev.TestGrpcServerRunner;
 import org.serious.dev.UserServiceApplication;
 import org.serious.dev.config.TestGrpcConfig;
 import org.serious.dev.grpc.UserRequest;
 import org.serious.dev.grpc.UserResponse;
 import org.serious.dev.grpc.UserServiceGrpc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -19,13 +20,14 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@AllArgsConstructor
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(classes = {UserServiceApplication.class, TestGrpcConfig.class})
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@SpringBootTest(classes = {TestGrpcConfig.class, UserServiceApplication.class})
+@RequiredArgsConstructor
 class UserGrpcServiceIntegrationTest {
 
-    private final GrpcServerRunner testServerRunner;
+    private final TestGrpcServerRunner testServerRunner;
     private final TestGrpcClient testGrpcClient;
 
     @AfterAll
@@ -39,7 +41,7 @@ class UserGrpcServiceIntegrationTest {
             "       (4, 'jane', 'jane@gmail.com', now());"
     }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
-    void test() throws IOException {
+    void shouldRunTestGrpcRequest() throws IOException {
         testServerRunner.start();
 
         UserServiceGrpc.UserServiceBlockingStub stubClient = testGrpcClient.createStubClient();

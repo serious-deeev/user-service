@@ -2,10 +2,10 @@ package org.serious.dev;
 
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.serious.dev.grpc.UserServiceGrpc;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TestGrpcClient {
 
     private final String testGrpcServerUrl;

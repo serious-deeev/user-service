@@ -6,11 +6,9 @@ grpc:
 spring:
   datasource:
     url: jdbc:tc:postgresql:16.8:///user_post_repository
-
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     enabled: true
-
   jpa:
     generate-ddl: false
     properties:
@@ -25,16 +23,13 @@ logging:
       springframework:
         transaction:
           interceptor: trace
-
         orm:
           jpa:
             JpaTransactionManager: debug
-
       hibernate:
         engine:
           transaction:
             internal:
               TransactionImpl: debug
-
       assertj:
         core: debug

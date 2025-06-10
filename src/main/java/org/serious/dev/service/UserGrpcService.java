@@ -1,14 +1,16 @@
 package org.serious.dev.service;
 
 import io.grpc.stub.StreamObserver;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.serious.dev.dto.UserResponseDto;
 import org.serious.dev.grpc.UserRequest;
 import org.serious.dev.grpc.UserResponse;
 import org.serious.dev.grpc.UserServiceGrpc;
 import org.serious.dev.mapper.UserMapper;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Service
 public class UserGrpcService extends UserServiceGrpc.UserServiceImplBase {
 
     private final UserMapper userMapper;

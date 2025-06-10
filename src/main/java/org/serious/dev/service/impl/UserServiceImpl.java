@@ -1,6 +1,6 @@
 package org.serious.dev.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.serious.dev.dto.UserResponseDto;
 import org.serious.dev.entity.User;
 import org.serious.dev.exception.NoSuchUserException;
@@ -9,7 +9,7 @@ import org.serious.dev.repository.UserRepository;
 import org.serious.dev.service.UserService;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -6,12 +6,11 @@ import io.grpc.protobuf.services.ProtoReflectionService;
 import lombok.RequiredArgsConstructor;
 import org.serious.dev.exception.UserGlobalExceptionInterceptor;
 import org.serious.dev.service.UserGrpcService;
-import org.springframework.beans.factory.DisposableBean;
 
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class GrpcServerRunner implements DisposableBean {
+public class TestGrpcServerRunner {
 
     private final Integer grpcServerPort;
     private final UserGlobalExceptionInterceptor userGlobalExceptionInterceptor;
@@ -32,10 +31,9 @@ public class GrpcServerRunner implements DisposableBean {
         server.awaitTermination();
     }
 
-    @Override
-    public void destroy() {
+    public void destroyNow() {
         if (server != null) {
-            server.shutdown();
+            server.shutdownNow();
         }
     }
 }

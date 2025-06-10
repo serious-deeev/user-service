@@ -1,19 +1,21 @@
 package org.serious.dev.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.serious.dev.UserServiceApplication;
 import org.serious.dev.dto.UserResponseDto;
 import org.serious.dev.service.UserService;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@AllArgsConstructor
+@ActiveProfiles("test")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest(classes = UserServiceApplication.class)
+@RequiredArgsConstructor
 class UserServiceIntegrationTest {
 
     private final UserService testUserService;
