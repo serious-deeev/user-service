@@ -1,0 +1,35 @@
+grpc:
+  server:
+    url: ${USER_SERVICE_GRPC_URL:localhost}
+    port: ${USER_SERVICE_GRPC_PORT:18001}
+
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16.8:///user_post_repository
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+  jpa:
+    generate-ddl: false
+    properties:
+      hibernate:
+        default_schema: "user_post_storage"
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction:
+          interceptor: trace
+        orm:
+          jpa:
+            JpaTransactionManager: debug
+      hibernate:
+        engine:
+          transaction:
+            internal:
+              TransactionImpl: debug
+      assertj:
+        core: debug
