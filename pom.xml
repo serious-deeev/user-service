@@ -25,19 +25,20 @@
     </scm>
 
     <properties>
+        <postresql.version>42.7.5</postresql.version>
+        <io.grpc.version>1.72.0</io.grpc.version>
+        <tomcat.annotations.api.version>6.0.53</tomcat.annotations.api.version>
+        <lombok.version>1.18.38</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <testcontainers.version>1.21.0</testcontainers.version>
+        <user.migrate.service>1.0.0</user.migrate.service>
+        <os.maven.plugin>1.7.1</os.maven.plugin>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <os.maven.plugin>1.7.1</os.maven.plugin>
         <protobuf.maven.plugin>0.6.1</protobuf.maven.plugin>
         <maven.dependency.plugin.version>3.8.1</maven.dependency.plugin.version>
         <maven.antrun.plugin.version>3.1.0</maven.antrun.plugin.version>
-        <lombok.version>1.18.38</lombok.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
-        <io.grpc.version>1.72.0</io.grpc.version>
-        <tomcat.annotations.api.version>6.0.53</tomcat.annotations.api.version>
-        <testcontainers.version>1.21.0</testcontainers.version>
-        <user.migrate.service>1.0.0</user.migrate.service>
     </properties>
 
     <dependencies>
@@ -45,6 +46,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+            <version>${postresql.version}</version>
         </dependency>
 
         <dependency>

@@ -5,12 +5,20 @@
 Тестовая система, которая имитирует процесс создания заказа на покупку поста пользователя.
 
 ### Реализованные микросервисы
-1\. user-migrate – spring-boot микросервис, выполняет миграции БД для микросервиса user-service:
+1\. [user-migrate](https://github.com/serious-deeev/user-migrate/tree/develop) – spring-boot микросервис, выполняет миграции БД для микросервиса user-service:
 * в качестве СУБД используется PostgreSQL 16.8
 * в качестве либы для миграций используется Liquibase
 
-2\. user-service – spring-boot микросервис для управления пользователями:
+2\. [user-service](https://github.com/serious-deeev/user-service/tree/develop) – spring-boot микросервис для управления пользователями:
 * предоставляет gRPC-метод GetUser для проверки существования пользователя
+* для тестирования используется Testcontainers
+
+3\. [post-migrate](https://github.com/serious-deeev/post-migrate/tree/develop) – spring-boot микросервис, выполняет миграции БД для микросервиса post-service:
+* в качестве СУБД используется PostgreSQL 16.8
+* в качестве либы для миграций используется Liquibase
+
+4\. [post-service](https://github.com/serious-deeev/post-service/tree/develop) – spring-boot микросервис для управления постами пользователей:
+* предоставляет gRPC-метод GetPost для проверки существования поста
 * для тестирования используется Testcontainers
 
 ### Локальный запуск компонентов
