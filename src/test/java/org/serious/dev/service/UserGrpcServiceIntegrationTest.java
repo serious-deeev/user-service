@@ -7,7 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.serious.dev.TestGrpcClient;
 import org.serious.dev.TestGrpcServerRunner;
 import org.serious.dev.UserServiceApplication;
-import org.serious.dev.config.TestGrpcConfig;
+import org.serious.dev.grpc.config.TestGrpcConfig;
 import org.serious.dev.grpc.UserRequest;
 import org.serious.dev.grpc.UserResponse;
 import org.serious.dev.grpc.UserServiceGrpc;
