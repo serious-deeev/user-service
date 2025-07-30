@@ -14,13 +14,13 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Setter
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Builder
 @Table(name = "users")
-@Entity
 public class User {
 
     @Id

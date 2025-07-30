@@ -3,6 +3,7 @@ package org.serious.dev;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.ServerInterceptor;
+import io.grpc.ServerInterceptors;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import lombok.RequiredArgsConstructor;
 import org.serious.dev.service.UserGrpcService;
@@ -28,7 +29,7 @@ public class TestGrpcServerRunner {
         interceptors.forEach(serverInterceptor -> serverBuilder.intercept(serverInterceptor));
         server = serverBuilder
                 .addService(ProtoReflectionService.newInstance())
-                .addService(userGrpcService)
+                .addService(ServerInterceptors.intercept(userGrpcService, interceptors))
                 .build()
                 .start();
     }

@@ -21,10 +21,10 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
+@RequiredArgsConstructor
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest(classes = {TestGrpcConfig.class, UserServiceApplication.class})
-@RequiredArgsConstructor
 class UserGrpcServiceIntegrationTest {
 
     private final TestGrpcServerRunner testServerRunner;
@@ -35,12 +35,12 @@ class UserGrpcServiceIntegrationTest {
         testServerRunner.destroyNow();
     }
 
+    @Test
     @Sql(statements = {
             "INSERT INTO user_post_storage.users(id, username, email, created_at)" +
             "VALUES (3, 'cole', 'cole@mail.ru', now())," +
             "       (4, 'jane', 'jane@gmail.com', now());"
     }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Test
     void shouldRunTestGrpcRequest() throws IOException {
         testServerRunner.start();
 
