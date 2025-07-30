@@ -5,8 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.serious.dev.dto.UserResponseDto;
 import org.serious.dev.entity.User;
+import org.serious.dev.grpc.UserResponse;
 import org.serious.dev.mapper.UserMapper;
 import org.serious.dev.repository.UserRepository;
 
@@ -35,18 +35,18 @@ class UserServiceUnitTest {
                 .when(fakeUserRepository)
                 .findById(1L);
 
-        UserResponseDto expectedResponseDto = UserResponseDto.builder()
-                .id(1L)
-                .username("John")
+        UserResponse expectedResponse = UserResponse.newBuilder()
+                .setId(1L)
+                .setUsername("John")
                 .build();
 
-        doReturn(expectedResponseDto)
+        doReturn(expectedResponse)
                 .when(fakeUserMapper)
-                .userToUserResponseDto(testUser);
+                .userToUserResponse(testUser);
 
-        UserResponseDto actualResponseDto = userService.getUserById(1L);
+        UserResponse actualResponse = userService.getUserById(1L);
 
-        assertThat(actualResponseDto).isNotNull();
-        assertThat(actualResponseDto).isEqualTo(expectedResponseDto);
+        assertThat(actualResponse).isNotNull();
+        assertThat(actualResponse).isEqualTo(expectedResponse);
     }
 }
