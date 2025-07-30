@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import static org.serious.dev.grpc.interceptor.GrpcRequestIdInterceptor.REQUEST_ID_KEY;
 
 @Slf4j
-@Order(200)
 @Component
+@Order(200)
 public class GrpcUserRequestInterceptor implements ServerInterceptor {
 
     @Override
@@ -62,16 +62,20 @@ public class GrpcUserRequestInterceptor implements ServerInterceptor {
 
     private <ReqT> void logRequest(ReqT requestMessage, String requestId, String incomingRpc) {
         UserRequest request = (UserRequest) requestMessage;
-        log.info("[{}] получен grpc-запрос → rpcCall: {}, id пользователя: {}",
+        log.info(
+                "[{}] получен grpc-запрос → rpcCall: {}, id пользователя: {}",
                 requestId,
                 incomingRpc,
-                request.getId());
+                request.getId()
+        );
     }
 
     private <RespT> void logResponse(RespT responseMessage, String requestId) {
         UserResponse response = (UserResponse) responseMessage;
-        log.info("[{}] найден пользователь с id = {}, отправляем ответ",
+        log.info(
+                "[{}] найден пользователь с id = {}, отправляем ответ",
                 requestId,
-                response.getId());
+                response.getId()
+        );
     }
 }

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Order(300)
 @Component
+@Order(300)
 public class GrpcRequestIdInterceptor implements ServerInterceptor {
 
     public static final Context.Key<String> REQUEST_ID_KEY = Context.key("requestId");
@@ -26,8 +26,7 @@ public class GrpcRequestIdInterceptor implements ServerInterceptor {
             Metadata headers,
             ServerCallHandler<ReqT, RespT> next
     ) {
-        Context contextWithRequestId = Context
-                .current()
+        Context contextWithRequestId = Context.current()
                 .withValue(REQUEST_ID_KEY, getRequestId(headers));
 
         return Contexts.interceptCall(contextWithRequestId, call, headers, next);
