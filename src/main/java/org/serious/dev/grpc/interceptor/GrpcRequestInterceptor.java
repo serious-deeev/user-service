@@ -7,17 +7,29 @@ import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.serious.dev.grpc.UserNotificationDataRequest;
+import org.serious.dev.grpc.UserNotificationDataResponse;
 import org.serious.dev.grpc.UserRequest;
 import org.serious.dev.grpc.UserResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.function.Function;
 
 import static org.serious.dev.grpc.interceptor.GrpcRequestIdInterceptor.REQUEST_ID_KEY;
 
 @Slf4j
 @Component
 @Order(200)
-public class GrpcUserRequestInterceptor implements ServerInterceptor {
+public class GrpcRequestInterceptor implements ServerInterceptor {
+
+    private static final Map<Class<?>, Function<Object, Long>> idExtractors = Map.of(
+            UserRequest.class, req -> ((UserRequest) req).getId(),
+            UserResponse.class, res -> ((UserResponse) res).getId(),
+            UserNotificationDataRequest.class, req -> ((UserNotificationDataRequest) req).getId(),
+            UserNotificationDataResponse.class, res -> ((UserNotificationDataResponse) res).getId()
+    );
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
@@ -27,6 +39,8 @@ public class GrpcUserRequestInterceptor implements ServerInterceptor {
     ) {
         String requestId = REQUEST_ID_KEY.get();
         String incomingRpcMethodName = call.getMethodDescriptor().getFullMethodName();
+
+
         ServerCall<ReqT, RespT> serverCall = getServerCall(call, requestId);
         ServerCall.Listener<ReqT> delegate = next.startCall(serverCall, headers);
 
@@ -61,21 +75,26 @@ public class GrpcUserRequestInterceptor implements ServerInterceptor {
     }
 
     private <ReqT> void logRequest(ReqT requestMessage, String requestId, String incomingRpc) {
-        UserRequest request = (UserRequest) requestMessage;
+        Long id = getaLong(requestMessage);
         log.info(
                 "[{}] получен grpc-запрос → rpcCall: {}, id пользователя: {}",
                 requestId,
                 incomingRpc,
-                request.getId()
+                id
         );
     }
 
     private <RespT> void logResponse(RespT responseMessage, String requestId) {
-        UserResponse response = (UserResponse) responseMessage;
+        Long id = getaLong(responseMessage);
         log.info(
                 "[{}] найден пользователь с id = {}, отправляем ответ",
                 requestId,
-                response.getId()
+                id
         );
+    }
+
+    private Long getaLong(Object message) {
+        Function<Object, Long> idExtractor = idExtractors.get(message.getClass());
+        return idExtractor != null ? idExtractor.apply(message) : null;
     }
 }

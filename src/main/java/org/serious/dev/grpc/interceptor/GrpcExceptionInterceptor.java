@@ -8,7 +8,7 @@ import io.grpc.ServerInterceptor;
 import io.grpc.Status;
 import io.grpc.protobuf.ProtoUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.serious.dev.exception.HasErrorCode;
+import org.serious.dev.exception.HasGrpcErrorCode;
 import org.serious.dev.exception.NoSuchUserException;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -73,7 +73,7 @@ public class GrpcExceptionInterceptor implements ServerInterceptor {
         Status actualStatus = EXCEPTION_STATUS_MAP.getOrDefault(exception.getClass(), UNKNOWN);
         Metadata metadata = new Metadata();
 
-        if (exception instanceof HasErrorCode errorTypedException) {
+        if (exception instanceof HasGrpcErrorCode errorTypedException) {
             com.google.rpc.Status protoStatus = com.google.rpc.Status.newBuilder()
                     .setMessage(errorTypedException.getErrorType().name())
                     .build();

@@ -6,11 +6,22 @@ message UserRequest {
   int64 id = 1;
 }
 
+message UserNotificationDataRequest {
+  int64 id = 1;
+}
+
 message UserResponse {
   int64 id = 1;
   string username = 2;
 }
 
+message UserNotificationDataResponse {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+}
+
 service UserService {
   rpc GetUser(UserRequest) returns (UserResponse);
+  rpc GetUserNotificationData(UserNotificationDataRequest) returns (UserNotificationDataResponse);
 }
