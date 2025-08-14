@@ -1,6 +1,6 @@
 package org.serious.dev.exception;
 
-public enum ErrorCode {
+public enum GrpcErrorCode {
 
     USER_NOT_FOUND;
 }
